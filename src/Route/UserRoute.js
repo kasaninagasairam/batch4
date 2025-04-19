@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const resetUsers = () => { users = []; };
  
-// const resetUsers = () => { users = []; };
+
  
 // In-memory user store
 let users = [];
@@ -80,3 +81,7 @@ router.delete('/:id', (req, res) => {
  
  
 module.exports = router;
+module.exports.__resetUsers = resetUsers;
+ 
+
+ 

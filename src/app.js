@@ -1,19 +1,21 @@
-const request = require("supertest");
-const app = require("../src/app");
+const express = require('express');
+const bodyParser = require('body-parser');
+const userRoutes = require('./Route/UserRoute');
+const postRoutes = require('./Route/postRoute');
+ // fixed path
  
-describe("User Routes", () => {
+const app = express();
+const port = 3000;
  
-  it("should create a new user", async () => {
-    const response = await request(app)
-      .post("/users")
-      .send({ name: "John Doe", email: "john@example.com", age: 30 });
+// Middleware to parse JSON data
+app.use(bodyParser.json());
  
-    expect(response.status).toBe(201);
-    expect(response.body.data).toHaveProperty("name", "John Doe");
-    expect(response.body.data).toHaveProperty("email", "john@example.com");
-    expect(response.body.data).toHaveProperty("age", 30);
-  });
+// In-memory user data store
+app.use("/users", userRoutes);
+app.use("/posts", postRoutes);
  
- 
+// Start the server
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
 });
- 
+ module.exports = app;  

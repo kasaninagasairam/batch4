@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const resetPosts = () => { posts = []; };
  
 let posts = [];
 const sendResponse = (res, statusCode, message, data = null) => {
@@ -81,3 +82,6 @@ router.delete('/:id', (req, res) => {
  
  
 module.exports = router;
+module.exports.__resetPosts = resetPosts;
+ 
+ 
